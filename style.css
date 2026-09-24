@@ -1,0 +1,400 @@
+/* =========================================================
+   LUMINA NOVA - MODERN COSMIC & GLASSMORPHIC STYLESHEET
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* --- 1. DESIGN TOKENS --- */
+:root {
+    --bg-base: #070913;
+    --bg-surface: rgba(18, 22, 41, 0.75);
+    --bg-surface-hover: rgba(30, 37, 68, 0.85);
+    --bg-card-border: rgba(255, 255, 255, 0.08);
+    --bg-card-border-hover: rgba(168, 85, 247, 0.4);
+    
+    --primary-glow: rgba(99, 102, 241, 0.35);
+    --accent-purple: #8b5cf6;
+    --accent-indigo: #6366f1;
+    --accent-pink: #ec4899;
+    --accent-cyan: #06b6d4;
+    
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    
+    --radius-card: 24px;
+    --radius-btn: 14px;
+    --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- 2. GLOBAL RESET & BASE LAYOUT --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg-base);
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 15% 70%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, #020617 0%, var(--bg-base) 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+}
+
+/* --- 3. HEADER & BRANDING --- */
+header {
+    text-align: center;
+    padding: 1.5rem 0 1rem;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 20%, #c7d2fe 60%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 16px rgba(139, 92, 246, 0.25));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+header::before {
+    content: '✦';
+    font-size: 1.25rem;
+    color: var(--accent-indigo);
+    -webkit-text-fill-color: var(--accent-indigo);
+    animation: pulseGlow 3s infinite alternate;
+}
+
+/* --- 4. NAVIGATION BAR --- */
+#nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 620px;
+    margin: 0.5rem auto 0 auto;
+    padding: 0.65rem 1.25rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 18px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+#nav-bar button {
+    width: auto;
+    padding: 0.55rem 1.15rem;
+    margin-bottom: 0;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+#nav-bar button::before,
+#nav-bar button::after {
+    display: none !important;
+}
+
+#nav-bar button:disabled {
+    opacity: 0.28;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: var(--bg-card-border) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+#btn-reset:not(:disabled):hover {
+    border-color: rgba(236, 72, 153, 0.5);
+    box-shadow: 0 0 16px rgba(236, 72, 153, 0.3);
+}
+
+#nav-step-indicator {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    user-select: none;
+}
+
+/* --- 5. STEP CONTAINER CARDS --- */
+/* Note: display: none / display: block is controlled by JS inline styles */
+div[id^="display-"] {
+    width: 100%;
+    max-width: 620px;
+    margin: 1.5rem auto;
+    padding: 2.5rem 2rem;
+    background: var(--bg-surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--bg-card-border);
+    border-radius: var(--radius-card);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.65),
+        0 0 40px -15px var(--primary-glow),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- 5. SECTION HEADINGS --- */
+div[id^="display-"] h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.2rem, 3vw, 1.45rem);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #e0e7ff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    padding-bottom: 0.85rem;
+}
+
+div[id^="display-"] h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-indigo), var(--accent-purple));
+    border-radius: 9999px;
+    box-shadow: 0 0 12px var(--accent-indigo);
+}
+
+/* --- 6. INTERACTIVE ACTION BUTTONS --- */
+button {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 0.9rem;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--bg-card-border);
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.01em;
+}
+
+/* Subtle gloss shine reflection on button */
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+    transition: left 0.6s ease;
+}
+
+/* Trailing navigation arrow */
+button::after {
+    content: '→';
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    transition: transform 0.25s ease, color 0.25s ease;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+button:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--bg-card-border-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 12px 24px -6px rgba(0, 0, 0, 0.4),
+        0 0 20px -4px rgba(139, 92, 246, 0.35);
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:hover::after {
+    transform: translateX(5px);
+    color: #c7d2fe;
+}
+
+button:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 3px;
+}
+
+/* --- 7. SPECIALIZED RESOURCE BUTTONS --- */
+#display-resource button {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.07) 0%, rgba(168, 85, 247, 0.05) 100%);
+    border-color: rgba(99, 102, 241, 0.2);
+    padding: 1.25rem 1.5rem;
+}
+
+#display-resource button::after {
+    content: '↗';
+    font-size: 1.25rem;
+    color: #818cf8;
+}
+
+#display-resource button:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.15) 100%);
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 14px 28px -6px rgba(99, 102, 241, 0.45);
+}
+
+#display-resource button:hover::after {
+    transform: translate(3px, -3px);
+    color: #ffffff;
+}
+
+/* --- 8. SPECIALIZED YEAR BUTTONS (Pill Grid) --- */
+#display-year button {
+    justify-content: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 1rem 1.25rem;
+}
+
+#display-year button::before {
+    display: none;
+}
+
+#display-year button::after {
+    content: '';
+    display: none;
+}
+
+#display-year button:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3));
+    border-color: var(--accent-indigo);
+}
+
+/* --- 9. FOOTER --- */
+footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+footer::before {
+    content: '• ';
+    color: var(--accent-purple);
+}
+
+footer::after {
+    content: ' •';
+    color: var(--accent-purple);
+}
+
+/* --- 10. ANIMATIONS --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pulseGlow {
+    from {
+        opacity: 0.6;
+        transform: scale(0.9);
+        filter: drop-shadow(0 0 2px var(--accent-indigo));
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 8px var(--accent-pink));
+    }
+}
+
+/* --- 11. RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 640px) {
+    body {
+        padding: 1rem 0.75rem;
+    }
+    
+    div[id^="display-"] {
+        padding: 1.75rem 1.25rem;
+        border-radius: 18px;
+    }
+
+    #nav-bar {
+        padding: 0.5rem 0.85rem;
+        border-radius: 14px;
+    }
+
+    #nav-bar button {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.82rem;
+    }
+
+    #nav-step-indicator {
+        font-size: 0.75rem;
+    }
+
+    button {
+        font-size: 0.95rem;
+        padding: 1rem 1.15rem;
+    }
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Lumina Nova</title>
+</head>
+<body>
+    <header>
+        Lumina Nova
+    </header>
+
+    <!-- NAVIGATION BAR -->
+    <div id="nav-bar">
+        <button id="btn-prev" disabled>← Back</button>
+        <span id="nav-step-indicator">Step 1 of 6 • Faculty</span>
+        <button id="btn-reset" disabled>⟲ Restart</button>
+    </div>
+
+    <!-- ALL CONTAINERS REQUIRED BY JS -->
+    <div id="display-index"></div>
+    <div id="display-schools"></div>
+    <div id="display-courses"></div>
+    <div id="display-year"></div>
+    <div id="display-modules"></div>
+    <div id="display-resource"></div>
+
+    <footer>
+        Made By Daybreak Open
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script  type="module" src="./js/app.js"></script>
+</body>
+</html>
