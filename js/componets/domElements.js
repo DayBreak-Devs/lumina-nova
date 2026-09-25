@@ -13,3 +13,12 @@ export let displayResources = document.getElementById("display-resource")
 export const btnPrev = document.getElementById("btn-prev")
 export const btnReset = document.getElementById("btn-reset")
 export const stepIndicator = document.getElementById("nav-step-indicator")
+
+export const emptyResponseFunction = () => {
+    let error = document.createElement('div')
+    error.className = "error-page"
+    let errorMessage = document.createElement("p")
+    errorMessage.textContent = "Strange...theres nothing here. Press 'Restart' and choose a different path"
+    error.appendChild(errorMessage)
+    return error
+}

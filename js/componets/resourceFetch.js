@@ -1,6 +1,6 @@
 import {mySupabase,fetchFunction} from "../services/supabase.js"
 import  {unpackResource} from "./resourceRender.js"
-import {displayIndex,displaySchools,displayYear,displayCourses,displayModules,displayResources} from "./domElements.js"
+import {displayIndex,displaySchools,displayYear,displayCourses,displayModules,displayResources,emptyResponseFunction} from "./domElements.js"
 import {showSection} from "./navigator.js"
 
 
@@ -12,7 +12,7 @@ export let faculties = ["Commence, Law and Management", "Engineering and Built E
 export let years = [1, 2, 3, 4]
 
 // Temporary array used to pass data from one step to the next as the user clicks through choices.
-let arrayHolding = [];
+let arrayHolding = faculties;
 
 // Navigation state variables used to construct dynamic database queries.
 let table = null;
@@ -26,6 +26,8 @@ let year = null;
 // 6. NAVIGATION VIEWS (STEP-BY-STEP FLOW)
 // ==========================================
 
+let emptyResponse = emptyResponseFunction();
+
 // STEP 1: Render Faculty Options
 export const InitFaculties = () => {
     showSection(displayIndex) 
@@ -38,6 +40,11 @@ export const InitFaculties = () => {
     let head = document.createElement("h1")
     head.textContent = filterKey.toUpperCase();
     displayIndex.appendChild(head);
+
+    if(faculties.length == 0){
+        displayIndex.appendChild(emptyResponse)
+        return
+    }
 
     faculties.forEach(function(item){
         let btn = document.createElement("button")
@@ -56,7 +63,9 @@ export const InitFaculties = () => {
 // STEP 2: Render School Options
 const InitSchool = () => {
     showSection(displaySchools) 
-    displaySchools.innerHTML = "" 
+
+    displaySchools.innerHTML = "";
+
 
     let head = document.createElement("h1")
     head.textContent = "SCHOOL";
@@ -91,6 +100,12 @@ const InitYears = () => {
     head.textContent = filterKey.toUpperCase();
     displayYear.appendChild(head);
 
+    if (arrayHolding.length == 0) {
+        displayYear.appendChild(emptyResponse);
+        return;
+    } 
+
+
     arrayHolding.forEach(function(item){
         let btn = document.createElement("button")
         btn.textContent = item
@@ -119,6 +134,12 @@ const InitCourse = () => {
     head.textContent = "COURSES";
     displayCourses.appendChild(head);
 
+    if (arrayHolding.length === 0) {
+        displayCourses.appendChild(emptyResponse);
+        return;
+    } 
+
+
     arrayHolding.forEach(function(item){
         let btn = document.createElement("button")
         btn.textContent = item.course_name
@@ -145,6 +166,12 @@ const InitModule = () => {
     let head = document.createElement("h1")
     head.textContent = filterKey.toUpperCase();
     displayModules.appendChild(head);
+
+    if (arrayHolding.length === 0) {
+        displayModules.appendChild(emptyResponse);
+        return;
+    } 
+
 
     arrayHolding.forEach(function(item){
         let btn = document.createElement("button")
